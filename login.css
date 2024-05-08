@@ -1,0 +1,114 @@
+body {
+    /*渐变函数*/
+    background: linear-gradient(#141e30, #243b55);
+    /*背景固定 fixed 不随页面滚动而滚动*/
+    background-attachment: fixed;
+}
+.login {
+    display: flex;
+    /*垂直分布*/
+    flex-direction: column;
+    /*justify-content: center;*/
+    width: 420px;
+    height: 400px;
+    background-color: #0c1622;
+    margin: 165px auto;
+    /*圆边角*/
+    border-radius: 10px;
+    /*添加阴影效果*/
+    box-shadow: 10px 15px 25px 0 rgba(0, 0, 0, .6);
+}
+.title {
+    text-align: center;
+    width: 200px;
+    height: 25px;
+    margin: 25px auto;
+}
+.up {
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    /*margin-top: 20px;*/
+    width: 300px;
+    height: 50px;
+    margin: -14px auto 20px;
+
+}
+h1 {
+    color: white;
+    font-family: "Chalkduster", cursive;
+}
+.buttonBox {
+    display: flex;
+    justify-content: center;
+    margin: 40px 10px 0px 10px;
+
+}
+.e {
+    position: relative;
+    top: 7px;
+}
+
+.up input {
+    margin: -10px 0px 64px 0px;
+    padding: 5px;
+    background-color: #0c1622 !important;
+    color: white;
+    /*border: none;*/
+    /*设置圆角*/
+    border-radius: 5px;
+    border: 1px solid #888888;
+    box-shadow: 10px 5px 25px 0 rgba(23, 29, 52, .6);
+    height: 30px;
+    font-family: "微软雅黑", cursive;
+    /*margin-bottom: 10px;*/
+}
+/*.up input:first-child {*/
+/*    margin-top: 30px;*/
+/*}*/
+.buttonBox input {
+    width: 100px;
+    border: 1px solid #888888;
+    box-shadow: 10px 5px 25px 0 rgba(23, 29, 52, .6);
+    margin: 25px 36px 15px 20px;
+    padding: 5px;
+    background-color: #0c1622;
+    color: white;
+    /*border: none;*/
+    border-radius: 5px;
+    height: 30px;
+    font-family: "微软雅黑", cursive;
+    /*margin-bottom: 10px;*/
+}
+.buttonBox input:active{
+    color: #7299C1;
+}
+label {
+    color: white;
+    font-family: "微软雅黑", cursive;
+}
+footer {
+    color: #cccccc;
+    /*文本位置*/
+    text-align: right;
+    /*字间距*/
+    letter-spacing: 3px;
+    /*文本倾斜*/
+    font-style: italic;
+}
+.active {
+    animation-duration: 3s;
+    animation-name: slidein;
+    animation-iteration-count: infinite;
+}
+@keyframes slidein {
+    from {
+        margin-left: 100%;
+        width: 300%;
+    }
+
+    to {
+        margin-left: 0%;
+        width: 100%;
+    }
+}

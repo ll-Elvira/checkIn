@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="泡泡.css">
+</head>
+
+<body>
+<div class="kuang">
+<div class="login">
+    <div class="title">
+        <h1>login</h1>
+    </div>
+
+    <form action="http://192.168.1.7:7999/api/login" methon="post" name="" id="login" class="form">
+<!--输入-->
+        <div class="up">
+            <div class="un">
+            <label for="username">username: </label>
+            <input type="text" maxlength="15" id="username" name="username"><br>
+            </div>
+            <div class="pw">
+            <label for="password">password: </label>
+            <input v-bind:type="show(flag1)" maxlength="20" id="password" name="password">
+                <span v-on:click="change" class="eyes"> <img v-show="flag1" class="e" src="闭眼.gif"> <!-- 闭眼 --> <img v-show="flag2" class="e" src="睁眼1.gif">
+                    <!-- 睁眼 -->
+			</span>
+                <br>
+            </div>
+        </div>
+<!--按钮-->
+        <div class="buttonBox" >
+
+        <input type="submit" value="登录" id="l">
+<!--        <input type="submit" value="管理员登录" id="al">-->
+        <input type="submit" value="用户注册" id="ur">
+        </div>
+
+    </form>
+  
+
+</div>
+
+<!--页脚-->
+<footer>@llll</footer>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+</div>
+<script src="vue.js"></script>
+<script>
+
+    // 创建实例
+    const  pw= new Vue({
+        // 通过el配置选择器，指定Vue管理的是哪个盒子
+        el: '.pw',
+        // 通过data提供数据
+        data: {
+            flag1: true,
+            flag2: false
+        },
+        // vue 实例中提供所有的methods中的函数，this都指向当前实例
+        // 提供处理逻辑函数
+        methods: {
+            change(){
+                console.log('9999')
+                let t
+                t = pw.flag1
+                console.log(t)
+                pw.flag1 = pw.flag2
+                console.log(pw.flag1)
+                pw.flag2 = t
+                console.log(pw.flag2)
+            },
+            show(a){
+                if (a===true) {
+                    a='password'
+                }else{
+                    a='text'
+                }
+                return a
+            }
+        }
+    })
+
+    // 获取点击登录按钮获取的表单元素
+    const form = document.getElementById('login');
+
+    // 监听表单的提交事件
+    form.addEventListener('submit', function(event) {
+        // 阻止表单的默认提交行为
+        event.preventDefault();
+        // 获取触发事件的元素
+        const buttonClicked = event.submitter;
+        if (buttonClicked.value === '登录') {
+            console.log('用户点击了登录');
+            // 获取表单数据
+            const formData = new FormData(form);
+            let jsonData = {};
+            //遍历表单数据
+            formData.forEach((value, key) => {
+                console.log(key, value);
+                jsonData[key] = value
+            });
+            jsonData["method"] = 0;
+            jsonData["role"] = 1;
+            let jsonOutput = JSON.stringify(jsonData);
+
+            //上传数据
+            console.log(jsonOutput)//控制台打印上传的json数据
+            // 使用ajax异步通信
+            // 创建xhr对象
+            let xhr = new XMLHttpRequest();
+            //准备发送请求 请求方式 请求地址 是否异步
+            xhr.open('POST', 'http://192.168.1.7:7999/api/login', true);
+            //设置请求头部,告诉服务器发送的数据是json格式的数据
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            //监听xhr对象的ajax状态码，当readyState改变时，匿名函数将被调用
+            xhr.onreadystatechange = function () {
+                //4代表已经接收到全部响应数据
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log('Response data:', JSON.parse(xhr.responseText));
+                        window.location.href = '主界面.html'
+                    } else {
+                        console.error('Failed to fetch data');
+                    }
+                }
+            };
+            //发送请求
+            xhr.send(jsonOutput);
+        }
+        else if(buttonClicked.value === '管理员登录'){
+            console.log('用户点击了登录');
+            // 获取表单数据
+            const formData = new FormData(form);
+            let jsonData = {};
+            //遍历表单数据
+            formData.forEach((value, key) => {
+                console.log(key, value);
+                jsonData[key] = value
+            });
+            jsonData["method"] = 0;
+            //管理员
+            jsonData["role"] = 0;
+            let jsonOutput = JSON.stringify(jsonData);
+
+            //上传数据
+            console.log(jsonOutput)//控制台打印上传的json数据
+            // 使用ajax异步通信
+            // 创建xhr对象
+            let xhr = new XMLHttpRequest();
+            //准备发送请求 请求方式 请求地址 是否异步
+            xhr.open('POST', 'http://192.168.1.7:7999/api/login', true);
+            //设置请求头部,告诉服务器发送的数据是json格式的数据
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            //监听xhr对象的ajax状态码，当readyState改变时，匿名函数将被调用
+            xhr.onreadystatechange = function () {
+                //4代表已经接收到全部响应数据
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        //获取头部token
+                        // let token = xhr.getResponseHeader("Token");
+                        console.log('Response data:', JSON.parse(xhr.responseText));
+                        window.location.href = '管理员界面.html'
+                        console.log(token);
+                    } else {
+                        console.error('Failed to fetch data');
+                    }
+                }
+            };
+            //发送请求
+            xhr.send(jsonOutput);
+        }
+        else if(buttonClicked.value === '用户注册'){
+            window.location.href = '用户注册.html'
+
+        }
+    });
+
+
+
+</script>
+</body>
+</html>
